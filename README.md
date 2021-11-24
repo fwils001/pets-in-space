@@ -12,7 +12,7 @@ On the front end, I have included an src folder with three files:
 
 Here is the list of routes:
 
-GET / index / renders a show page of all the pets
+GET / index / renders a show page of all the pets <br>
 POST/ create/ allows users to post pics and blurbs about their pets
 PUT/ update/ allows users to edit information about their own pets
 PUT/ update / allows an admin to edit information for all pets
