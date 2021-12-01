@@ -2,16 +2,16 @@ const mongoose = require('mongoose');
 
 const petSchema = new mongoose.Schema({
     name: {
-        type:String,
-        required: true
+        type: String,
+        // required: true
     }, 
     about: {
         type: String,
-        default: 'Best Pet Ever!'
+        // required: true
     },
     image: {
-        type: String,
-        default: "https://imgur.com/ZBGAJI6.jpg"
+        type: Object,
+        // required: true
     }
 });
 

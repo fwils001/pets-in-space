@@ -12,8 +12,9 @@ class App extends Component {
       pets: [],
       modalOpen: false,
       petToBeEdited:{},
-      description:'',
-      name: '',
+      name:'',
+      about: '',
+      image: [],
       userLoggedIn: false
     }
   
@@ -167,7 +168,6 @@ class App extends Component {
       })
       if (response.status === 200){
         const updatedPet = await response.json()
-        //console.log(updatedHoliday)
         const findIndex = this.state.pets.findIndex(pet => pet._id === updatedPet._id)
         const copyPets = [...this.state.pets]
         copyPets[findIndex] = updatedPet
@@ -195,8 +195,7 @@ class App extends Component {
       petToBeEdited:pet
     })
   }
-  // component lifecycle flowchart
-  // https://levelup.gitconnected.com/componentdidmakesense-react-lifecycle-explanation-393dcb19e459
+
   componentDidMount() {
     this.getPets()
   }
@@ -214,8 +213,8 @@ class App extends Component {
                     <td>{ pet.name }</td>
                     <td key={i}> {pet.about} </td>
                     <td>{pet.image}</td>
-                    <td onClick={() => { this.showEditForm(pet)}}>Show Edit Form</td>
-                    <td onClick={() => this.deletePet(pet._id)}>X</td>
+                    <button onClick={() => { this.showEditForm(pet)}}>Edit</button>
+                    <button onClick={() => this.deletePet(pet._id)}>Delete</button>
                   </tr>
                 )
               })
