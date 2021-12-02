@@ -1,11 +1,6 @@
 import React, { Component } from "react";
-
-import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-// import Container from "react-bootstrap/Container";
-// import Row from "react-bootstrap/Row";
-// import Col from "react-bootstrap/Col";
-// import Image from "react-bootstrap/Image";
+
 
 export default class NewPetForm extends Component {
   constructor(props) {
@@ -31,7 +26,7 @@ export default class NewPetForm extends Component {
 
   handleChangeImage = (event) => {
     this.setState({
-      image: event.target.value,
+      image: event.target.files,
     });
   };
 
@@ -90,19 +85,18 @@ export default class NewPetForm extends Component {
         <Form.Group className="image">
           <Form.Label>Image:</Form.Label>
           <Form.Control
-            type="uri"
-            checked={this.state.image}
+            type="file"
+            value={this.state.image}
             onChange={(e) => this.handleChangeImage(e)}
           />
         </Form.Group>
         <br></br>
-        <Button variant="primary" type="submit">
-          Memorialize
-        </Button>
+        <button class="memorialize">Memorialize</button>
       </Form>
     );
   }
 }
+
 
 
 // import React, { Component } from 'react'

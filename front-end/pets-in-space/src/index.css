@@ -29,3 +29,12 @@ img {
     50% { transform: translate(0, 15px); }
     100%  { transform: translate(0, -0px); }
 }
+
+.memorialize {
+    height: 45px;
+    width: 125px;
+    background-color: blue;
+    color: white;
+    font-size:large;
+    border-radius: 25px
+}
