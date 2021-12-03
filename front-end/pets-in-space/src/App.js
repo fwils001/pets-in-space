@@ -16,7 +16,8 @@ class App extends Component {
       name:'',
       about: '',
       image: [],
-      userLoggedIn: false
+      userLoggedIn: false,
+      userId: ""
     }
   
   }
@@ -63,8 +64,15 @@ class App extends Component {
       })
       console.log(response)
       console.log("BODY: ",response.body)
+      const jsonResults = await response.json()
+      console.log(jsonResults)
       if (response.status === 200) {
         this.getPets()
+        console.log("I am inside the response.status")
+        this.setState({
+          userLoggedIn: true,
+          userId: jsonResults._id
+        })
       }
     }
     catch (err) {
@@ -229,10 +237,11 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        
         <Nav loginUser={this.loginUser} register={this.register} logout={this.logout}/>
         <div id="dogsandcats">
       <img src="https://imgur.com/fyLNPq3.jpg"/>
-    </div>
+      </div>
         <h1>Pets in Space</h1>
         <NewPetForm baseUrl={baseUrl} addPet={ this.addPet }/>
         <table>
@@ -243,8 +252,13 @@ class App extends Component {
                     <td class="name">{ pet.name }</td>
                     <td class="about" key={i}> {pet.about} </td>
                     <td><img class="image"src={pet.image} alt="pet"></img></td>
+                    {this.state.userId===pet.user ?
+                    <>
                     <button onClick={() => { this.showEditForm(pet)}}>Edit</button>
                     <button onClick={() => this.deletePet(pet._id)}>Delete</button>
+                    </>
+                    : ""
+                    }
                   </tr>
                 )
               })
@@ -264,6 +278,8 @@ class App extends Component {
               <button>submit</button>
             </form>
           }
+          
+        
       </div>
     );
   }

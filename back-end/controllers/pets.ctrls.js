@@ -11,9 +11,9 @@ const index = (req, res) => {
 
 /* create */
 const create = (req, res) => {
-  db.Pet.create(req.body, (error, createdPet ) => {
+    const newPet = {...req.body, user: req.session.currentUser._id}
+  db.Pet.create(newPet, (error, createdPet) => {
     if(error) return res.status(400).json({ error: error.message });
-
     return res.status(201).json(createdPet);
   });
 }

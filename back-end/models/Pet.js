@@ -3,16 +3,21 @@ const mongoose = require('mongoose');
 const petSchema = new mongoose.Schema({
     name: {
         type: String,
-        // required: true
+        required: true
     }, 
     about: {
         type: String,
-        // required: true
+        required: true
     },
     image: {
-        type: Object,
-        // required: true
-    }
+        type: String,
+        required: true
+    },
+    user: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'User',
+		required: true
+	}
 });
 
 

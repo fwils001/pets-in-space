@@ -1,28 +1,26 @@
-/* == External  modules == */
+
 const express = require('express');
 require('dotenv').config()
-/* == Internal  modules == */
+
 const routes = require('./routes');
 
-/* == cors == */
+
 const cors = require('cors')
 
 const session = require('express-session')
 
 
-/* PORT */
 const PORT = process.env.PORT || 3003;
 
-/* == Express Instance == */
+
 const app = express();
 
 const MongoDBStore = require('connect-mongodb-session')(session)
 
-/* == DB connection == */
+
 require('./config/db.connection');
 
-/* == middlewares == */
-// Setup Cors middleware
+
 const whitelist = ['http://localhost:3000', 'heroku frontend url here']
 const corsOptions = {
   origin: (origin, callback) => {
@@ -49,6 +47,11 @@ app.use(session({
     collection: 'mySessions'
   }),
 }))
+app.use((req, res, next) => {
+	console.log("Here is the session in the custom app-level middleware.")
+	console.log(req.session)
+	next()
+})
 
 const isAuthenticated = (req, res, next) => {
     if (req.session.currentUser) {
@@ -61,7 +64,7 @@ const isAuthenticated = (req, res, next) => {
 
 app.use(express.json());
 
-/* == Routes == */
+
 app.get('/', function (req, res) {
   res.send('hello')
 })
@@ -70,7 +73,7 @@ app.use('/pets', isAuthenticated, routes.pets)
 app.use('/users', routes.users)
 
 
-/* == Server Bind == */
+
 app.listen(PORT, () => {
   console.log(`🎉🎊 celebrations happening on http://localhost:${PORT} 🎉🎊`);
 });
