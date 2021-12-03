@@ -26,7 +26,7 @@ export default class NewPetForm extends Component {
 
   handleChangeImage = (event) => {
     this.setState({
-      image: event.target.files,
+      image: event.target.value,
     });
   };
 
@@ -85,13 +85,14 @@ export default class NewPetForm extends Component {
         <Form.Group className="image">
           <Form.Label>Image:</Form.Label>
           <Form.Control
-            type="file"
+            type="url"
             value={this.state.image}
             onChange={(e) => this.handleChangeImage(e)}
           />
         </Form.Group>
         <br></br>
         <button class="memorialize">Memorialize</button>
+        <hr></hr>
       </Form>
     );
   }

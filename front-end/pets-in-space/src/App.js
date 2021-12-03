@@ -2,6 +2,7 @@ import './App.css';
 import React, { Component } from 'react'
 import NewPetForm from './NewPetForm'
 import Nav from './Nav'
+// import { login } from '../../../back-end/controllers/users.ctrls';
 
 let baseUrl = process.env.REACT_APP_BASEURL
 
@@ -42,6 +43,7 @@ class App extends Component {
       pets: copyPets,
     })
   }
+
   loginUser = async (e) => {
     console.log('loginUser')
     e.preventDefault()
@@ -91,6 +93,31 @@ class App extends Component {
       console.log('Error => ', err);
     }
   }
+  logout = async (e) => {
+    console.log("logout user")
+    e.preventDefault()
+    const url = baseUrl + '/users/logout'
+    try {
+      const response = await fetch(url, {
+        method: 'DELETE',      
+        body: JSON.stringify({
+          username: e.target.username.value,
+          password: e.target.password.value
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      if (response.status === 200) {
+       
+      }
+    }
+    catch (err) {
+      console.log('Error => ', err);
+    }
+  }
+  
+
   // toggleCelebrated = (pet) => {
   //   console.log(pet)
   //   fetch(baseUrl + '/holidays/' + holiday._id, {
@@ -202,7 +229,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Nav loginUser={this.loginUser} register={this.register}/>
+        <Nav loginUser={this.loginUser} register={this.register} logout={this.logout}/>
+        <div id="dogsandcats">
+      <img src="https://imgur.com/fyLNPq3.jpg"/>
+    </div>
         <h1>Pets in Space</h1>
         <NewPetForm baseUrl={baseUrl} addPet={ this.addPet }/>
         <table>
@@ -210,9 +240,9 @@ class App extends Component {
             { this.state.pets.map((pet, i) => {
                 return (
                   <tr key={pet._id}>
-                    <td>{ pet.name }</td>
-                    <td key={i}> {pet.about} </td>
-                    <td>{pet.image}</td>
+                    <td class="name">{ pet.name }</td>
+                    <td class="about" key={i}> {pet.about} </td>
+                    <td><img class="image"src={pet.image} alt="pet"></img></td>
                     <button onClick={() => { this.showEditForm(pet)}}>Edit</button>
                     <button onClick={() => this.deletePet(pet._id)}>Delete</button>
                   </tr>
