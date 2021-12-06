@@ -101,8 +101,8 @@ class App extends Component {
       console.log('Error => ', err);
     }
   }
-  logout = async (e) => {
-    console.log("logout user")
+  logoutUser = async (e) => {
+    console.log('logout user')
     e.preventDefault()
     const url = baseUrl + '/users/logout'
     try {
@@ -117,7 +117,9 @@ class App extends Component {
         }
       })
       if (response.status === 200) {
-       
+        this.setState({
+          userLoggedIn: false
+        })
       }
     }
     catch (err) {
@@ -125,28 +127,6 @@ class App extends Component {
     }
   }
   
-
-  // toggleCelebrated = (pet) => {
-  //   console.log(pet)
-  //   fetch(baseUrl + '/holidays/' + holiday._id, {
-  //     method: 'PUT',
-  //     body: JSON.stringify({celebrated: !holiday.celebrated}),
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     credentials: "include"
-  //   }).then(res => res.json())
-  //   .then(resJson => {
-  //     // console.log(resJson)
-  //     const copyHolidays = [...this.state.holidays]
-  //     const findIndex = this.state.holidays.findIndex(
-  //       holiday => holiday._id === resJson._id)
-  //     copyHolidays[findIndex].celebrated = resJson.celebrated
-  //     this.setState({
-  //       holidays: copyHolidays
-  //     })
-  //   })
-  // }
   deletePet = (id) => {
       // console.log(id)
       fetch(baseUrl + '/pets/' + id, {
@@ -163,28 +143,7 @@ class App extends Component {
       })
     })
   }
-  // addLike = (holiday) => {
-  //   // console.log(holiday)
-  //   fetch(baseUrl + '/holidays/' + holiday._id, {
-  //     method: 'PUT',
-  //     body: JSON.stringify({ likes: holiday.likes + 1}),
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     credentials: "include"
-  //   }).then(res => res.json())
-  //   .then(resJson => {
-  //     // console.log(resJson)
-  //     const copyHolidays = [...this.state.holidays]
-  //     const findIndex = this.state.holidays.findIndex(holiday => holiday._id === resJson._id)
-  //     copyHolidays[findIndex].likes = resJson.likes
-  //     this.setState({
-  //       holidays: copyHolidays
-  //     })
-  //   })
-  // }
-  // for more on async functions
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
+ 
   handleSubmit = async (e) => {
     e.preventDefault()
     const url = baseUrl + '/pets/' + this.state.petToBeEdited._id
@@ -240,21 +199,21 @@ class App extends Component {
         
         <Nav loginUser={this.loginUser} register={this.register} logout={this.logout}/>
         <div id="dogsandcats">
-      <img src="https://imgur.com/fyLNPq3.jpg"/>
+      <img src="https://imgur.com/fyLNPq3.jpg" alt="pets"/>
       </div>
         <h1>Pets in Space</h1>
-        <NewPetForm baseUrl={baseUrl} addPet={ this.addPet }/>
+        <NewPetForm baseUrl={baseUrl} addPet={this.addPet}/>
         <table>
           <tbody>
-            { this.state.pets.map((pet, i) => {
+            {this.state.pets.map((pet, i) => {
                 return (
-                  <tr key={pet._id}>
-                    <td class="name">{ pet.name }</td>
-                    <td class="about" key={i}> {pet.about} </td>
-                    <td><img class="image"src={pet.image} alt="pet"></img></td>
+                  <tr class="table" key={pet._id}>
+                    <td class="pet-name">{pet.name} 🦊🐶🌹</td>
+                    <td class="pet-about">{pet.about}</td>
+                    <td><img class="pet-image"src={pet.image} alt="pet"></img></td>
                     {this.state.userId===pet.user ?
                     <>
-                    <button onClick={() => { this.showEditForm(pet)}}>Edit</button>
+                    <button onClick={() => {this.showEditForm(pet)}}>Edit</button>
                     <button onClick={() => this.deletePet(pet._id)}>Delete</button>
                     </>
                     : ""
@@ -265,7 +224,6 @@ class App extends Component {
             }
           </tbody>
         </table>
-        <br/>
           {
             this.state.modalOpen &&
             <form onSubmit={this.handleSubmit}>

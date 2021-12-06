@@ -25,7 +25,7 @@ img {
 }
 
 @keyframes floating {
-    0% { transform: translate(0 ,0px); }
+    0% { transform: translate(0, 0px); }
     50% { transform: translate(0, 15px); }
     100%  { transform: translate(0, -0px); }
 }
@@ -40,7 +40,7 @@ img {
 }
 
 .image {
-  margin-left: 10px;
+  margin-left: -5px;
   margin-top: 5px;
 }
 .name {
@@ -71,3 +71,9 @@ img {
   50% { transform: translate(0, 15px); }
   100%  { transform: translate(0, -0px); }
 }
+.pet-image {
+  margin-top: 5px;
+  margin-left: 50px;
+  border-style: inset;
+}
+
