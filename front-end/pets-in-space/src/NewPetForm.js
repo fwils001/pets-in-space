@@ -85,7 +85,7 @@ export default class NewPetForm extends Component {
         <Form.Group className="image">
           <Form.Label>Image:</Form.Label>
           <Form.Control
-            type="url"
+            type="text"
             value={this.state.image}
             onChange={(e) => this.handleChangeImage(e)}
           />
