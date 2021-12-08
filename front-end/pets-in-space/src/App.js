@@ -70,6 +70,7 @@ class App extends Component {
         this.getPets()
         console.log("I am inside the response.status")
         this.setState({
+          username: jsonResults.username,
           userLoggedIn: true,
           userId: jsonResults._id
         })
@@ -106,18 +107,12 @@ class App extends Component {
     e.preventDefault()
     const url = baseUrl + '/users/logout'
     try {
-      const response = await fetch(url, {
-        method: 'DELETE',      
-        body: JSON.stringify({
-          username: e.target.username.value,
-          password: e.target.password.value
-        }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
+      const response = await fetch(url
+      )
       if (response.status === 200) {
         this.setState({
+          userId: "",
+          username: "",
           userLoggedIn: false
         })
       }
@@ -197,7 +192,7 @@ class App extends Component {
     return (
       <div className="App">
         
-        <Nav loginUser={this.loginUser} register={this.register} logout={this.logout}/>
+        <Nav loginUser={this.loginUser} register={this.register} logout={this.logoutUser}/>
         <div id="dogsandcats">
       <img src="https://imgur.com/fyLNPq3.jpg" alt="pets"/>
       </div>
@@ -211,7 +206,7 @@ class App extends Component {
                     <td class="pet-name">{pet.name} 🦊🐶🌹</td>
                     <td class="pet-about">{pet.about}</td>
                     <td><img class="pet-image"src={pet.image} alt="pet"></img></td>
-                    {this.state.userId===pet.user ?
+                    {this.state.userId===pet.user || this.state.username==="admin" ?
                     <>
                     <button onClick={() => {this.showEditForm(pet)}}>Edit</button>
                     <button onClick={() => this.deletePet(pet._id)}>Delete</button>

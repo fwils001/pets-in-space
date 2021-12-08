@@ -18,7 +18,7 @@ export default function Nav(props) {
                 <input type="password" id="password" name="password"/>
                 <input type="submit" value="signup" />
             </form>
-            <button onSubmit={props.logoutUser}>log out</button>
+            <button onClick={props.logout}>log out</button>
         </nav>
     )
 }

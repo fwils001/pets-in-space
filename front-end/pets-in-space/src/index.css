@@ -49,17 +49,27 @@ img {
 .about {
   margin-top: 5px;
 }
-#suit {
+#toy {
   margin-left: 800px;
+  animation-name: floating;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes floating {
+  0% { transform: translate(0, 0px); }
+  50% { transform: translate(0, 15px); }
+  100%  { transform: translate(0, -0px); }
 }
 #star {
   max-width: 80%;
   margin-left: 800px;
-  margin-bottom: 200px
+  margin-bottom: 400px
 }
 #bone {
   margin-left: 800px;
-  margin-bottom: 400px;
+  margin-bottom: 500px;
   animation-name: floating;
   animation-duration: 3s;
   animation-iteration-count: infinite;
